@@ -263,7 +263,7 @@ class PlotlyPlotBlock(BaseBlock):
         plotly_kwargs = plotly_kwargs or {}
         # prefix = "<script>if (typeof require !== 'undefined' && Plotly) {var Plotly = require('plotly')}</script>"
         data_html = po.plot(contents, include_plotlyjs=False, output_type='div', **plotly_kwargs)
-        data_html = data_html.replace("window.PLOTLYENV=window.PLOTLYENV", "require(['plotly'], function (Plotly){ window.PLOTLYENV = window.PLOTLYENV").replace("</script>", "})</script>")
+        data_html = data_html.replace("window.PLOTLYENV=window.PLOTLYENV", "document.addEventListener('DOMContentLoaded', function() { if (typeof require !== 'undefined') { require(['plotly'], function (Plotly){ window.PLOTLYENV = window.PLOTLYENV").replace("</script>", "})}});</script>")
 
         self._contents = data_html
 
